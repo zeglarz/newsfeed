@@ -1,21 +1,15 @@
-var express = require('express');
-var cors = require('cors');
-var app = express();
-const newsApi = require('./newsApi');
+const express = require('express');
+const cors = require('cors');
+const app = express();
 app.use(cors());
 
+const newsApi = require('./newsApi');
 
-app.get ('/products', function (req, res) {
-    return res.json(productsStore.getProducts());
-});
+let news = newsApi.getCryptoHeadlines();
 
-app.get('/products/:id', function (req, res) {
-    return res.json(productsStore.getProductById(req.params.id));
-});
-
-app.delete('/products/:id', function (req, res) {
-    productsStore.deleteProductById(req.params.id, () => {
-        res.json({});
+app.get('/', (req, res) => {
+    news.then(response => {
+        return res.json(response.articles); // res.send((response.articles) żeby wyświetlić w konsoli
     });
 });
 
@@ -25,5 +19,5 @@ const runServer = (port) => {
 
 };
 
-module.exports = { runServer }; //strukturyzacja, czyli przeciwieństwo destrukturyzacji
+module.exports = {runServer}; //strukturyzacja, czyli przeciwieństwo destrukturyzacji
 

@@ -10,13 +10,6 @@ const getCryptoHeadlines = () => newsapi.v2.topHeadlines({
     category: 'politics',
     language: 'en',
     country: 'us'
-}).then(response => {
-    response.json();
-    /*
-      {
-        status: "ok",
-        articles: [...]
-      }
-    */
 });
+
 module.exports = { getCryptoHeadlines };
